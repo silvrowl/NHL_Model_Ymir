@@ -1,0 +1,178 @@
+Pure stats data: 
+	http://moneypuck.com/data.htm
+	NHL API -> https://gitlab.com/dword4/nhlapi/-/tree/master
+	https://www.reddit.com/r/EdmontonOilers/comments/ab98ax/about_predicting_nhl_scores/
+	https://www.reddit.com/r/hockey/comments/7p7o70/documenting_the_nhl_api/
+
+Possible model structures: 
+	http://moneypuck.com/about.htm
+	https://hockeyviz.com/txt/edgar, https://hockeyviz.com/txt/cordelia
+	https://github.com/HarryShomer/NHL-Prediction-Model
+	https://www.researchgate.net/publication/284457066_Predicting_NHL_Match_Outcomes_with_ML_Models
+
+	Possible Sub Models:
+		- Team Data
+		- Player Data
+		- ELO ratings
+		- News Semantic Parser
+
+News Scraping:
+	https://towardsdatascience.com/web-scraping-news-articles-in-python-9dd605799558
+	https://pdfs.semanticscholar.org/ae85/d2df5d3983faaa270f5fb590607308a9a78f.pdf
+	https://hackernoon.com/i-made-a-news-scrapper-with-100-lines-of-python-2e1de1f28f22
+	https://pypi.org/project/news-fetch/
+
+Example Google News URL for the past year:
+	https://news.google.com/search?q=Toronto%20Maple%20Leafs%20when%3A1y&hl=en-CA&gl=CA&ceid=CA%3Aen
+
+/data_extract
+	/team
+	/player
+	/news
+/data_transform
+	/team
+	/player
+	/news
+/models
+	/team
+	/player
+	/news
+	/ 
+
+GET https://statsapi.web.nhl.com/api/v1/game/2016020001/boxscore
+
+The first 4 digits identify the season of the game (ie. 2017 for the 2017-2018 season). The next 2 digits give the type of game, where 01 = preseason, 02 = regular season, 03 = playoffs, 04 = all-star. The final 4 digits identify the specific game number. For regular season and preseason games, this ranges from 0001 to the number of games played. (1271 for seasons with 31 teams (2017 and onwards) and 1230 for seasons with 30 teams). For playoff games, the 2nd digit of the specific number gives the round of the playoffs, the 3rd digit specifies the matchup, and the 4th digit specifies the game (out of 7).
+
+2016020001
+
+'home_team','home_team_id', 'home_goals', 'home_pim', 'home_shots', 'home_powerPlayPercentage', 'home_powerPlayGoals', 'home_powerPlayOpportunities', 
+        'home_faceOffWinPercentage', 'home_blocked', 'home_takehomes', 'home_givehomes', 'home_hits'
+
+
+    '''
+    team
+    season
+    name
+    gameId
+    playerTeam
+    opposingTeam
+    home_or_away
+    gameDate
+    position
+    situation
+    xGoalsPercentage
+    corsiPercentage
+    fenwickPercentage
+    iceTime
+    xOnGoalFor
+    xGoalsFor
+    xReboundsFor
+    xFreezeFor
+    xPlayStoppedFor
+    xPlayContinuedInZoneFor
+    xPlayContinuedOutsideZoneFor
+    flurryAdjustedxGoalsFor
+    scoreVenueAdjustedxGoalsFor
+    flurryScoreVenueAdjustedxGoalsFor
+    shotsOnGoalFor
+    missedShotsFor
+    blockedShotAttemptsFor
+    shotAttemptsFor
+    goalsFor
+    reboundsFor
+    reboundGoalsFor
+    freezeFor
+    playStoppedFor
+    playContinuedInZoneFor
+    playContinuedOutsideZoneFor
+    savedShotsOnGoalFor
+    savedUnblockedShotAttemptsFor
+    penaltiesFor
+    penalityMinutesFor
+    faceOffsWonFor
+    hitsFor
+    takeawaysFor
+    giveawaysFor
+    lowDangerShotsFor
+    mediumDangerShotsFor
+    highDangerShotsFor
+    lowDangerxGoalsFor
+    mediumDangerxGoalsFor
+    highDangerxGoalsFor
+    lowDangerGoalsFor
+    mediumDangerGoalsFor
+    highDangerGoalsFor
+    scoreAdjustedShotsAttemptsFor
+    unblockedShotAttemptsFor
+    scoreAdjustedUnblockedShotAttemptsFor
+    dZoneGiveawaysFor
+    xGoalsFromxReboundsOfShotsFor
+    xGoalsFromActualReboundsOfShotsFor
+    reboundxGoalsFor
+    totalShotCreditFor
+    scoreAdjustedTotalShotCreditFor
+    scoreFlurryAdjustedTotalShotCreditFor
+    xOnGoalAgainst
+    xGoalsAgainst
+    xReboundsAgainst
+    xFreezeAgainst
+    xPlayStoppedAgainst
+    xPlayContinuedInZoneAgainst
+    xPlayContinuedOutsideZoneAgainst
+    flurryAdjustedxGoalsAgainst
+    scoreVenueAdjustedxGoalsAgainst
+    flurryScoreVenueAdjustedxGoalsAgainst
+    shotsOnGoalAgainst
+    missedShotsAgainst
+    blockedShotAttemptsAgainst
+    shotAttemptsAgainst
+    goalsAgainst
+    reboundsAgainst
+    reboundGoalsAgainst
+    freezeAgainst
+    playStoppedAgainst
+    playContinuedInZoneAgainst
+    playContinuedOutsideZoneAgainst
+    savedShotsOnGoalAgainst
+    savedUnblockedShotAttemptsAgainst
+    penaltiesAgainst
+    penalityMinutesAgainst
+    faceOffsWonAgainst
+    hitsAgainst
+    takeawaysAgainst
+    giveawaysAgainst
+    lowDangerShotsAgainst
+    mediumDangerShotsAgainst
+    highDangerShotsAgainst
+    lowDangerxGoalsAgainst
+    mediumDangerxGoalsAgainst
+    highDangerxGoalsAgainst
+    lowDangerGoalsAgainst
+    mediumDangerGoalsAgainst
+    highDangerGoalsAgainst
+    scoreAdjustedShotsAttemptsAgainst
+    unblockedShotAttemptsAgainst
+    scoreAdjustedUnblockedShotAttemptsAgainst
+    dZoneGiveawaysAgainst
+    xGoalsFromxReboundsOfShotsAgainst
+    xGoalsFromActualReboundsOfShotsAgainst
+    reboundxGoalsAgainst
+    totalShotCreditAgainst
+    scoreAdjustedTotalShotCreditAgainst
+    scoreFlurryAdjustedTotalShotCreditAgainst'''
+
+
+Literature:
+
+Shot Quality (2004)
+http://hockeyanalytics.com/Research_files/Shot_Quality.pdf
+http://hockeyanalytics.com/shot-quality/
+
+An Expected Goals Model for Evaluating NHL Teams and Players (2012)
+http://www.hockeyanalytics.com/Research_files/NHL-Expected-Goals-Brian-Macdonald.pdf
+
+Loose Ends - Part I: Predicting Future Success
+http://objectivenhl.blogspot.com/2011/03/loose-ends-part-i-predictive-validity.html
+
+Expected Goals are a better predictor of future scoring than Corsi, Goals (2015)
+https://hockey-graphs.com/2015/10/01/expected-goals-are-a-better-predictor-of-future-scoring-than-corsi-goals/
