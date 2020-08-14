@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
-
+# Script containing parsers for text and dates for different sites
 
 import requests
 from bs4 import BeautifulSoup
@@ -21,6 +20,7 @@ def base_parser(text, base_site):
     
     else:
     
+        # web elements to ignore
         output = ''
         blacklist = [
             '[document]',
@@ -61,6 +61,7 @@ def base_parser(text, base_site):
         for t in text:
             if t.parent.name not in blacklist:
                 
+                # Append text across all elements
                 test += t.parent.name
                 
                 output += '{} '.format(t)
@@ -72,6 +73,7 @@ def base_parser(text, base_site):
 
 def time_parser(soup, base_site):
     
+    #Sites
     site_list = ['www.sportsnet.ca','www.nhl.com','www.tsn.ca','thehockeywriters.com','globalnews.ca','torontosun.com']
     
     if base_site in site_list:
@@ -147,7 +149,8 @@ def time_parser(soup, base_site):
             final = dateparser.parse(lines[0].replace('\n','').strip())
     
     else:
-           
+        
+        # default parser
         final = 'Nan'    
         for i in soup.findAll('time'):
             if i.has_attr('datetime'):
